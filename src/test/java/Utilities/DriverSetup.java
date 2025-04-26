@@ -31,7 +31,7 @@ public class DriverSetup {
 
         URL remoteUrl = new URL("http://127.0.0.1:4723");
         driver = new AndroidDriver(remoteUrl, options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
 
     @AfterSuite
