@@ -26,4 +26,8 @@ public class BasePage extends DriverSetup {
     public void clickOnElement(By locator){
         getElement(locator).click();
     }
+
+    public String getElementText(By locator){
+        return getElement(locator).getText();
+    }
 }

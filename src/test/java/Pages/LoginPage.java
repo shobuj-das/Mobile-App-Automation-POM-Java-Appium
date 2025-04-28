@@ -11,6 +11,6 @@ public class LoginPage extends BasePage{
     public By usernameField = By.xpath("//android.widget.EditText[@content-desc=\"Username input field\"]");
     public By passwordFiled = By.xpath("//android.widget.EditText[@content-desc=\"Password input field\"]");
     public By loginButton = By.xpath("//android.view.ViewGroup[@content-desc=\"Login button\"]");
-
+//    public By errorMsg = By.xpath()
 
 }
