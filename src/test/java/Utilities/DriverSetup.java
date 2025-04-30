@@ -24,9 +24,6 @@ public class DriverSetup {
         options.setPlatformName("android");
         options.setAutomationName("UiAutomator2");
         options.setApp(apk.getAbsolutePath());
-//        options.setAppPackage("com.androidsample.generalstore");
-//        options.setAppActivity("com.androidsample.generalstore.SplashActivity");
-
         options.setAppPackage("com.saucelabs.mydemoapp.rn");
         options.setAppActivity("com.saucelabs.mydemoapp.rn.MainActivity");
 

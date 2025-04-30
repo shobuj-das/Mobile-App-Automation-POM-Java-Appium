@@ -7,6 +7,7 @@ import Utilities.DataSet;
 import Utilities.DriverSetup;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import java.io.IOException;
 import org.testng.annotations.Test;
 
 public class LoginPage_tc extends DriverSetup {
@@ -34,6 +35,26 @@ public class LoginPage_tc extends DriverSetup {
 //
         String actualErrorMsg = loginPage.getErrorMsg(type);
         Assert.assertEquals(actualErrorMsg, errorMgs);
+    }
+    
+    @Test
+    public void loginButtonPropertyCheck() throws IOException {
+        basePage.clickOnElement(homePage.menuBar);
+        basePage.clickOnElement(homePage.loginOption);
+        // Check button size
+        int buttonWidth = loginPage.getElement(loginPage.loginButton).getSize().getWidth();
+        int buttonHeight = loginPage.getElement(loginPage.loginButton).getSize().getHeight();
+        Assert.assertTrue(buttonWidth > 0 && buttonHeight > 0);
+        System.out.printf("Button size: %d x %d", buttonWidth, buttonHeight);
+        // Check button label
+        String buttonText = loginPage.getElement(loginPage.loginButtonLabel).getText();
+        Assert.assertEquals(buttonText, "Login");
+
+        // Check if button is enabled and clickable
+        boolean isEnabled = loginPage.getElement(loginPage.loginButton).isEnabled();
+        boolean isDisplayed = loginPage.getElement(loginPage.loginButton).isDisplayed();
+        Assert.assertTrue(isEnabled && isDisplayed);
+
     }
 
 }

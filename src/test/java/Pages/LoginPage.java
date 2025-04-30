@@ -11,14 +11,14 @@ public class LoginPage extends BasePage{
     public By usernameField = By.xpath("//android.widget.EditText[@content-desc=\"Username input field\"]");
     public By passwordFiled = By.xpath("//android.widget.EditText[@content-desc=\"Password input field\"]");
     public By loginButton = By.xpath("//android.view.ViewGroup[@content-desc=\"Login button\"]");
-//    public By errorMsg = By.xpath()
 
     // error messages
     public By usernameError = By.xpath("//android.view.ViewGroup[@content-desc='Username-error-message']/android.widget.TextView");
     public By passwordError = By.xpath("//android.view.ViewGroup[@content-desc='Password-error-message']/android.widget.TextView");
     public By loginError = By.xpath("//android.view.ViewGroup[@content-desc='generic-error-message']/android.widget.TextView");
 
-
+    public By loginButtonLabel = By.xpath("(//android.widget.TextView[@text=\"Login\"])[2]");
+// ----------------- Methods ---------------------------------
     public String getErrorMsg(String type){
         if(type.equals("username")){
             return getElementText(usernameError);
