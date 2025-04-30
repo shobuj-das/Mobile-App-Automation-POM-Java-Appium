@@ -5,6 +5,7 @@ import Pages.HomePage;
 import Pages.LoginPage;
 import Utilities.DataSet;
 import Utilities.DriverSetup;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,7 +14,7 @@ public class LoginPage_tc extends DriverSetup {
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
 
-    @Test
+    @Test(priority = 1)
     public void loginWithValidCredentials() throws InterruptedException {
         basePage.clickOnElement(homePage.menuBar);
         basePage.clickOnElement(homePage.loginOption);
@@ -23,13 +24,16 @@ public class LoginPage_tc extends DriverSetup {
 
         Thread.sleep(3000);
     }
-    @Test(dataProvider = "invalidLoginData", dataProviderClass = DataSet.class)
-    public void loginWithInvalidCredentials(String username, String password, String errorMgs) throws InterruptedException {
+    @Test(dataProvider = "invalidLoginData", dataProviderClass = DataSet.class , priority = 0)
+    public void loginWithInvalidCredentials(String username, String password, String errorMgs, String type) throws InterruptedException {
         basePage.clickOnElement(homePage.menuBar);
         basePage.clickOnElement(homePage.loginOption);
         basePage.writeOnElement(loginPage.usernameField, username);
         basePage.writeOnElement(loginPage.passwordFiled, password);
         basePage.clickOnElement(loginPage.loginButton);
-        Assert.assertEquals(basePage.getElementText(loginPage.));
+//
+        String actualErrorMsg = loginPage.getErrorMsg(type);
+        Assert.assertEquals(actualErrorMsg, errorMgs);
     }
+
 }

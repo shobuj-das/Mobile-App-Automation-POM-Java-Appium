@@ -12,6 +12,7 @@ import java.time.Duration;
 
 public class DriverSetup {
     public static AndroidDriver driver;
+
     @BeforeSuite
     public void startApp() throws MalformedURLException {
         File file = new File("src/test/resources");

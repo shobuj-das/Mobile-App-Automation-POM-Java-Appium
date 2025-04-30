@@ -13,4 +13,21 @@ public class LoginPage extends BasePage{
     public By loginButton = By.xpath("//android.view.ViewGroup[@content-desc=\"Login button\"]");
 //    public By errorMsg = By.xpath()
 
+    // error messages
+    public By usernameError = By.xpath("//android.view.ViewGroup[@content-desc='Username-error-message']/android.widget.TextView");
+    public By passwordError = By.xpath("//android.view.ViewGroup[@content-desc='Password-error-message']/android.widget.TextView");
+    public By loginError = By.xpath("//android.view.ViewGroup[@content-desc='generic-error-message']/android.widget.TextView");
+
+
+    public String getErrorMsg(String type){
+        if(type.equals("username")){
+            return getElementText(usernameError);
+        }
+        else if(type.equals("password")){
+            return getElementText(passwordError);
+        }
+        else{
+            return getElementText(loginError);
+        }
+    }
 }
