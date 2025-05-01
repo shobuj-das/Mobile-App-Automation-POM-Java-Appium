@@ -8,6 +8,8 @@ import Utilities.DriverSetup;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import java.io.IOException;
+
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class LoginPage_tc extends DriverSetup {
@@ -15,20 +17,25 @@ public class LoginPage_tc extends DriverSetup {
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
 
-    @Test(priority = 1)
-    public void loginWithValidCredentials() throws InterruptedException {
+    @BeforeClass
+    public void navigateToLoginPage() {
         basePage.clickOnElement(homePage.menuBar);
         basePage.clickOnElement(homePage.loginOption);
+    }
+
+    @Test(priority = 1)
+    public void loginWithValidCredentials() throws InterruptedException {
+//        basePage.clickOnElement(homePage.menuBar);
+//        basePage.clickOnElement(homePage.loginOption);
         basePage.writeOnElement(loginPage.usernameField, loginPage.validUsername);
         basePage.writeOnElement(loginPage.passwordFiled, loginPage.validPassword);
         basePage.clickOnElement(loginPage.loginButton);
-
-        Thread.sleep(3000);
     }
+
     @Test(dataProvider = "invalidLoginData", dataProviderClass = DataSet.class , priority = 0)
     public void loginWithInvalidCredentials(String username, String password, String errorMgs, String type) throws InterruptedException {
-        basePage.clickOnElement(homePage.menuBar);
-        basePage.clickOnElement(homePage.loginOption);
+//        basePage.clickOnElement(homePage.menuBar);
+//        basePage.clickOnElement(homePage.loginOption);
         basePage.writeOnElement(loginPage.usernameField, username);
         basePage.writeOnElement(loginPage.passwordFiled, password);
         basePage.clickOnElement(loginPage.loginButton);
@@ -39,8 +46,8 @@ public class LoginPage_tc extends DriverSetup {
     
     @Test
     public void loginButtonPropertyCheck() throws IOException {
-        basePage.clickOnElement(homePage.menuBar);
-        basePage.clickOnElement(homePage.loginOption);
+//        basePage.clickOnElement(homePage.menuBar);
+//        basePage.clickOnElement(homePage.loginOption);
         // Check button size
         int buttonWidth = loginPage.getElement(loginPage.loginButton).getSize().getWidth();
         int buttonHeight = loginPage.getElement(loginPage.loginButton).getSize().getHeight();
@@ -54,7 +61,6 @@ public class LoginPage_tc extends DriverSetup {
         boolean isEnabled = loginPage.getElement(loginPage.loginButton).isEnabled();
         boolean isDisplayed = loginPage.getElement(loginPage.loginButton).isDisplayed();
         Assert.assertTrue(isEnabled && isDisplayed);
-
     }
 
 }
