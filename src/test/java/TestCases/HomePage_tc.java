@@ -3,8 +3,12 @@ package TestCases;
 import Pages.BasePage;
 import Pages.HomePage;
 import Utilities.DriverSetup;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePage_tc extends DriverSetup {
     BasePage basePage = new BasePage();
@@ -33,10 +37,22 @@ public class HomePage_tc extends DriverSetup {
     @Test(testName = "sort by Name - ascending")
     public void checkSortByNameAscending() {
         basePage.clickOnElement(homePage.sortButton);
-        basePage.clickOnElement(homePage.sortByPriceAscending);
-        basePage.clickOnElement(homePage.sortButton);
         basePage.clickOnElement(homePage.sortByNameAscending);
 
-        Assert.assertFalse(homePage.isProductSortedInAscendingOrderByName());
+        Assert.assertTrue(homePage.isProductSortedInAscendingOrderByName());
+    }
+
+    @Test ( testName = "sort by Price - ascending")
+    public void checkSortByPriceAscending() {
+        basePage.clickOnElement(homePage.sortButton);
+        basePage.clickOnElement(homePage.sortByPriceAscending);
+        Assert.assertTrue(homePage.isProductSortedInAscendingOrderByPrice());
+    }
+
+    @Test ( testName = "sort by Price - descending")
+    public void checkSortByPriceDescending() {
+        basePage.clickOnElement(homePage.sortButton);
+        basePage.clickOnElement(homePage.sortByPriceDescending);
+        Assert.assertTrue(homePage.isProductSortedInDescendingOrderByPrice());
     }
 }

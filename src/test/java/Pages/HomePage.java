@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class HomePage extends BasePage {
 
@@ -15,7 +16,7 @@ public class HomePage extends BasePage {
 
     // -- product details
     public By productName = By.xpath("//android.view.ViewGroup[@content-desc=\"cart badge\"]/android.widget.TextView");
-
+    public By productPrice = By.xpath("//android.widget.TextView[@content-desc='store item price']");
     // -- sort locators
     public By sortButton = AppiumBy.accessibilityId("sort button");
     public By sortByNameAscending = AppiumBy.accessibilityId("nameAsc");
@@ -32,7 +33,7 @@ public class HomePage extends BasePage {
 
     // -------------------------- Methods --------------------------------------
 
-    public boolean isProductSortedInDescendingOrderByName(){
+    public List<String> getProductNameList(){
 
         List<String> productNames = new ArrayList<>();
 
@@ -49,12 +50,70 @@ public class HomePage extends BasePage {
             }
         }
 
-        List<String> sortedNames = new ArrayList<>(productNames);
-        sortedNames.sort(Collections.reverseOrder());
-        return sortedNames.equals(productNames);
+//        List<String> sortedNames = new ArrayList<>(productNames);
+//        sortedNames.sort(Collections.reverseOrder());
+//        return sortedNames.equals(productNames);
+        return productNames;
     }
 
     public boolean isProductSortedInAscendingOrderByName(){
-        return !isProductSortedInDescendingOrderByName();
+        List<String> productNames = getProductNameList();
+        for (int i = 0; i < productNames.size() - 1; i++) {
+            if (productNames.get(i).compareToIgnoreCase(productNames.get(i + 1)) > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean isProductSortedInDescendingOrderByName(){
+        List<String> productNames = getProductNameList();
+        for (int i = 0; i < productNames.size() - 1; i++) {
+            if (productNames.get(i).compareToIgnoreCase(productNames.get(i + 1)) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<Float> getPriceList(){
+        List<Float> prices = new ArrayList<>();
+
+// add first displayed prices to a list
+        List<WebElement> prices_1 = getAllElements(productPrice);
+        for(WebElement price : prices_1){
+            float value = Float.parseFloat(price.getText().replace("$",""));;
+            prices.add(value);
+        }
+// hover to the last displayed price and add it to the list
+        hoverToPoint(352, 1170, 352, 0);
+        List<WebElement> prices_2 = getAllElements(productPrice);
+
+        for(WebElement price : prices_2){
+            float value = Float.parseFloat(price.getText().replace("$",""));
+            if(!prices.contains(value)){
+                prices.add(value);
+            }
+        }
+        return prices;
+    }
+
+    public boolean isProductSortedInAscendingOrderByPrice(){
+        List<Float> prices = getPriceList();
+        for (int i = 0; i < prices.size() - 1; i++) {
+            if (prices.get(i) > prices.get(i + 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isProductSortedInDescendingOrderByPrice(){
+        List<Float> prices = getPriceList();
+        for (int i = 0; i < prices.size() - 1; i++) {
+            if (prices.get(i) < prices.get(i + 1)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
