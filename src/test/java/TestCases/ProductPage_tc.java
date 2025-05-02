@@ -1,4 +1,16 @@
 package TestCases;
 
-public class ProductPage_tc {
+import Pages.BasePage;
+import Pages.HomePage;
+import Utilities.DriverSetup;
+import org.testng.annotations.Test;
+
+public class ProductPage_tc extends DriverSetup {
+    BasePage basePage = new BasePage();
+    HomePage homePage = new HomePage();
+
+    @Test
+    public void checkProductDetails(){
+
+    }
 }
