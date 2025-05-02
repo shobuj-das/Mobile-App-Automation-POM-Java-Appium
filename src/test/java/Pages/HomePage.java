@@ -17,6 +17,10 @@ public class HomePage extends BasePage {
     // -- product details
     public By productName = By.xpath("//android.view.ViewGroup[@content-desc=\"cart badge\"]/android.widget.TextView");
     public By productPrice = By.xpath("//android.widget.TextView[@content-desc='store item price']");
+    public By reviewStar = By.xpath("//android.view.ViewGroup[starts-with(@content-desc, 'review')]");
+    public By closeModalButton = AppiumBy.accessibilityId("Close Modal button");
+    public By reviewWelcomeMgs = By.xpath("//android.widget.TextView[@text='Thank you for submitting your review!']");
+    public final String welcomeMgs = "Thank you for submitting your review!";
     // -- sort locators
     public By sortButton = AppiumBy.accessibilityId("sort button");
     public By sortByNameAscending = AppiumBy.accessibilityId("nameAsc");
@@ -50,9 +54,6 @@ public class HomePage extends BasePage {
             }
         }
 
-//        List<String> sortedNames = new ArrayList<>(productNames);
-//        sortedNames.sort(Collections.reverseOrder());
-//        return sortedNames.equals(productNames);
         return productNames;
     }
 

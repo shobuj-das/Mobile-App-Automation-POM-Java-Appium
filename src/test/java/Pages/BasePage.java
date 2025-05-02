@@ -41,6 +41,18 @@ public class BasePage extends DriverSetup {
         return getElement(locator).getText();
     }
 
+    public boolean getDisplayStatus(By locator){
+        return getElement(locator).isDisplayed();
+    }
+
+    public boolean getEnabledStatus(By locator){
+        return getElement(locator).isEnabled();
+    }
+
+    public boolean getSelectedStatus(By locator){
+        return getElement(locator).isSelected();
+    }
+
     public void hoverToPoint(int startX, int startY, int endX, int endY){
 
 //        Dimension screenSize = driver.manage().window().getSize();
