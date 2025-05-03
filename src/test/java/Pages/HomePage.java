@@ -3,6 +3,7 @@ package Pages;
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,8 +16,12 @@ public class HomePage extends BasePage {
     public By loginOption = AppiumBy.androidUIAutomator("new UiSelector().text(\"Log In\")");
 
     // -- product details
-    public By productName = By.xpath("//android.view.ViewGroup[@content-desc=\"cart badge\"]/android.widget.TextView");
+    public By productImage = By.xpath("//android.view.ViewGroup[@content-desc='store item']/android.view.ViewGroup/android.widget.ImageView");
+
+//    public By productName = By.xpath("//android.view.ViewGroup[@content-desc=\"cart badge\"]/android.widget.TextView");
+    public By productName = By.xpath("//android.widget.TextView[@content-desc='store item text']");
     public By productPrice = By.xpath("//android.widget.TextView[@content-desc='store item price']");
+
     public By reviewStar = By.xpath("//android.view.ViewGroup[starts-with(@content-desc, 'review')]");
     public By closeModalButton = AppiumBy.accessibilityId("Close Modal button");
     public By reviewWelcomeMgs = By.xpath("//android.widget.TextView[@text='Thank you for submitting your review!']");
@@ -39,6 +44,7 @@ public class HomePage extends BasePage {
 
     public List<String> getProductNameList(){
 
+        refreshPage();
         List<String> productNames = new ArrayList<>();
 
         List<WebElement> names_1 = getAllElements(productName);
@@ -53,12 +59,12 @@ public class HomePage extends BasePage {
                 productNames.add(name.getDomAttribute("text"));
             }
         }
-
         return productNames;
     }
 
     public boolean isProductSortedInAscendingOrderByName(){
         List<String> productNames = getProductNameList();
+        System.out.println("Ascending name: " + productNames.size());
         for (int i = 0; i < productNames.size() - 1; i++) {
             if (productNames.get(i).compareToIgnoreCase(productNames.get(i + 1)) > 0) {
                 return false;
@@ -68,6 +74,7 @@ public class HomePage extends BasePage {
     }
     public boolean isProductSortedInDescendingOrderByName(){
         List<String> productNames = getProductNameList();
+        System.out.println("Descending name: " + productNames.size());
         for (int i = 0; i < productNames.size() - 1; i++) {
             if (productNames.get(i).compareToIgnoreCase(productNames.get(i + 1)) < 0) {
                 return false;
@@ -78,14 +85,13 @@ public class HomePage extends BasePage {
 
     public List<Float> getPriceList(){
         List<Float> prices = new ArrayList<>();
-
-// add first displayed prices to a list
+        refreshPage();
         List<WebElement> prices_1 = getAllElements(productPrice);
         for(WebElement price : prices_1){
             float value = Float.parseFloat(price.getText().replace("$",""));;
             prices.add(value);
         }
-// hover to the last displayed price and add it to the list
+
         hoverToPoint(352, 1170, 352, 0);
         List<WebElement> prices_2 = getAllElements(productPrice);
 
@@ -100,6 +106,7 @@ public class HomePage extends BasePage {
 
     public boolean isProductSortedInAscendingOrderByPrice(){
         List<Float> prices = getPriceList();
+        System.out.println("Ascending price: " + prices.size());
         for (int i = 0; i < prices.size() - 1; i++) {
             if (prices.get(i) > prices.get(i + 1)) {
                 return false;
@@ -110,6 +117,7 @@ public class HomePage extends BasePage {
 
     public boolean isProductSortedInDescendingOrderByPrice(){
         List<Float> prices = getPriceList();
+        System.out.println("Descendin price: " + prices.size());
         for (int i = 0; i < prices.size() - 1; i++) {
             if (prices.get(i) < prices.get(i + 1)) {
                 return false;

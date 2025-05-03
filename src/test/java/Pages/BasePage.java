@@ -1,6 +1,9 @@
 package Pages;
 
 import Utilities.DriverSetup;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -75,5 +78,38 @@ public class BasePage extends DriverSetup {
                 PointerInput.Origin.viewport(), end.getX(), end.getY()));
         swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
         driver.perform(Collections.singletonList(swipe));
+    }
+
+    public void refreshPage() {
+        // Get the screen dimensions
+        Dimension size = driver.manage().window().getSize();
+        int width = size.getWidth();
+        int height = size.getHeight();
+
+        // Calculate swipe positions
+        int startX = width / 2;
+        int startY = (int) (height * 0.2);  // Start near the top of the screen
+        int endY = (int) (height * 0.8);    // End near the bottom of the screen
+
+        // Create pointer input for touch actions
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+
+        // Create the sequence of actions
+        Sequence swipe = new Sequence(finger, 0);
+        swipe.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY));
+        swipe.addAction(finger.createPointerDown(0));
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), startX, startY)); // This creates a pause
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), startX, endY));
+        swipe.addAction(finger.createPointerUp(0));
+
+        // Perform the actions
+        driver.perform(Collections.singletonList(swipe));
+
+        // Wait for refresh to complete (optional)
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

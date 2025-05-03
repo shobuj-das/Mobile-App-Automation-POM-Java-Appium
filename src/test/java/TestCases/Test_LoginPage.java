@@ -5,14 +5,13 @@ import Pages.HomePage;
 import Pages.LoginPage;
 import Utilities.DataSet;
 import Utilities.DriverSetup;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import java.io.IOException;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class LoginPage_tc extends DriverSetup {
+public class Test_LoginPage extends DriverSetup {
     BasePage basePage = new BasePage();
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
