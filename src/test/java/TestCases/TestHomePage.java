@@ -76,11 +76,4 @@ public class TestHomePage extends DriverSetup {
         }
     }
 
-
-    @Test(enabled = false, testName = "testing")
-    public void testing(){
-        checkSortByNameAscending();
-        basePage.refreshPage();
-        checkSortByNameDescending();
-    }
 }
