@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class Test_HomePage extends DriverSetup {
+public class TestHomePage extends DriverSetup {
     BasePage basePage = new BasePage();
     HomePage homePage = new HomePage();
 

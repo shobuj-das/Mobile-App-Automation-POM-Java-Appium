@@ -11,7 +11,7 @@ import java.io.IOException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Test_LoginPage extends DriverSetup {
+public class TestLoginPage extends DriverSetup {
     BasePage basePage = new BasePage();
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();

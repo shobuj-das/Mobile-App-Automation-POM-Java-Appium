@@ -5,7 +5,7 @@ import Pages.HomePage;
 import Utilities.DriverSetup;
 import org.testng.annotations.Test;
 
-public class Test_ProductPage extends DriverSetup {
+public class TestProductPage extends DriverSetup {
     BasePage basePage = new BasePage();
     HomePage homePage = new HomePage();
 
