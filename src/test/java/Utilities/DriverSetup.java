@@ -11,10 +11,9 @@ import java.net.URL;
 import java.time.Duration;
 
 public class DriverSetup {
-    public static AndroidDriver driver;
+    private AndroidDriver driver;
 
-    @BeforeSuite
-    public void startApp() throws MalformedURLException {
+    public void setupDriver() throws MalformedURLException {
         File file = new File("src/test/resources");
         File apk = new File(file, "Android-MyDemoAppRN.1.3.0.build-244.apk");
 
@@ -31,12 +30,19 @@ public class DriverSetup {
         driver = new AndroidDriver(remoteUrl, options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
+    @BeforeSuite
+    public void startApp() throws MalformedURLException {
+        setupDriver();
+    }
 
+    public AndroidDriver getDriver(){
+        return driver;
+    }
     @AfterSuite
     public void quitApp(){
 //        if(driver != null){
 //            driver.removeApp("com.androidsample.generalstore");
 //        }
-        driver.quit();
+        getDriver().quit();
     }
 }

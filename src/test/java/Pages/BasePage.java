@@ -18,16 +18,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class BasePage extends DriverSetup {
-    WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
+    WebDriverWait wait = new WebDriverWait(getDriver(),Duration.ofSeconds(30));
 
     public WebElement getElement (By locator){
-        return driver.findElement(locator);
+        return getDriver().findElement(locator);
 //        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public List<WebElement> getAllElements(By locator){
 //        return wait.until(ExpectedConditions.visibilityOfAllElements((WebElement) locator));
-        return driver.findElements(locator);
+        return getDriver().findElements(locator);
     }
     public void writeOnElement(By locator, String text){
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -77,12 +77,12 @@ public class BasePage extends DriverSetup {
         swipe.addAction(finger.createPointerMove(Duration.ofMillis(1000),
                 PointerInput.Origin.viewport(), end.getX(), end.getY()));
         swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
-        driver.perform(Collections.singletonList(swipe));
+        getDriver().perform(Collections.singletonList(swipe));
     }
 
     public void refreshPage() {
         // Get the screen dimensions
-        Dimension size = driver.manage().window().getSize();
+        Dimension size = getDriver().manage().window().getSize();
         int width = size.getWidth();
         int height = size.getHeight();
 
@@ -103,7 +103,7 @@ public class BasePage extends DriverSetup {
         swipe.addAction(finger.createPointerUp(0));
 
         // Perform the actions
-        driver.perform(Collections.singletonList(swipe));
+        getDriver().perform(Collections.singletonList(swipe));
 
         // Wait for refresh to complete (optional)
         try {
