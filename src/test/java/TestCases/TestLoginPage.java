@@ -40,7 +40,8 @@ public class TestLoginPage extends DriverSetup {
         basePage.clickOnElement(loginPage.loginButton);
 //
         String actualErrorMsg = loginPage.getErrorMsg(type);
-        Assert.assertEquals(actualErrorMsg, errorMgs);
+//        Assert.assertEquals(actualErrorMsg, errorMgs);
+        softAssert.assertEquals(actualErrorMsg, errorMgs, "Error message does not match.");
     }
     
     @Test
@@ -54,12 +55,14 @@ public class TestLoginPage extends DriverSetup {
         System.out.printf("Button size: %d x %d", buttonWidth, buttonHeight);
         // Check button label
         String buttonText = loginPage.getElement(loginPage.loginButtonLabel).getText();
-        Assert.assertEquals(buttonText, "Login");
+//        Assert.assertEquals(buttonText, "Login");
+        softAssert.assertEquals(buttonText, "Login", "Button label does not match.");
 
         // Check if button is enabled and clickable
         boolean isEnabled = loginPage.getElement(loginPage.loginButton).isEnabled();
         boolean isDisplayed = loginPage.getElement(loginPage.loginButton).isDisplayed();
-        Assert.assertTrue(isEnabled && isDisplayed);
+//        Assert.assertTrue(isEnabled && isDisplayed);
+        softAssert.assertTrue(isEnabled && isDisplayed, "Button is not enabled or not displayed.");
     }
 
 }
